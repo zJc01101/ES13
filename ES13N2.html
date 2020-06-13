@@ -1,0 +1,32 @@
+<script>
+    let coureScore = {
+        java: 80,
+        php: 50,
+        es: 90,
+    };
+    let hander = {
+        get(target, key) {
+            let r = Object.keys(target).find(i => i.startsWith(key));
+            if (r) return r;
+            else throw new TypeError(`没用以${key}开头的属性`)
+        },
+
+        has(target, key) {
+            if (Object.keys(target).find(i => i.startsWith(key))) return true
+            else return false;
+        },
+    }
+
+    let courePx = new Proxy(coureScore, hander);
+
+    function getScore(name) {
+
+        if (name in courePx) console.log(`${courePx[name]}成绩为${coureScore[courePx[name]]}`);
+
+
+        else console.log(`没有以${name}开头的属性`);
+
+    }
+    getScore('jav');
+    getScore('jsp');
+</script>
